@@ -10,6 +10,7 @@ public class WeightedQuickUnion {
 
         for (int i = 0; i < numNodes; i++) {
             nodes[i] = i;
+            treeSizes[i] = 1;
         }
     }
 
