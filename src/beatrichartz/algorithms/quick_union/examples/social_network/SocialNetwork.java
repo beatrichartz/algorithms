@@ -8,6 +8,6 @@ public class SocialNetwork extends WeightedQuickUnion {
     }
 
     public boolean fullyConnected() {
-        return getNodes().length == getTreeSizes()[root(0)];
+        return nodes.length == treeSizes[root(0)];
     }
 }

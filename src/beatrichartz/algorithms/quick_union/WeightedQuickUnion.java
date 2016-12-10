@@ -1,8 +1,8 @@
 package beatrichartz.algorithms.quick_union;
 
 public class WeightedQuickUnion {
-    private int[] nodes;
-    private int[] treeSizes;
+    protected int[] nodes;
+    protected int[] treeSizes;
 
     public WeightedQuickUnion(int numNodes) {
         treeSizes = new int[numNodes];
@@ -33,21 +33,13 @@ public class WeightedQuickUnion {
         }
     }
 
-    public int root(int node) {
+    protected int root(int node) {
         while (node != nodes[node]) {
             nodes[node] = nodes[nodes[node]];
             node = nodes[node];
         }
 
         return node;
-    }
-
-    public int[] getNodes() {
-        return nodes;
-    }
-
-    public int[] getTreeSizes() {
-        return treeSizes;
     }
 
 
