@@ -1,6 +1,6 @@
-package beatrichartz.algorithms_test;
+package beatrichartz.algorithms_test.quick_union;
 
-import beatrichartz.algorithms.QuickUnion;
+import beatrichartz.algorithms.quick_union.QuickUnion;
 import junit.framework.TestCase;
 
 public class QuickUnionTest extends TestCase {

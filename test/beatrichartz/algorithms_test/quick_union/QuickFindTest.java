@@ -1,6 +1,6 @@
-package beatrichartz.algorithms_test;
+package beatrichartz.algorithms_test.quick_union;
 
-import beatrichartz.algorithms.QuickFind;
+import beatrichartz.algorithms.quick_union.QuickFind;
 import junit.framework.TestCase;
 
 public class QuickFindTest extends TestCase {
@@ -12,8 +12,8 @@ public class QuickFindTest extends TestCase {
     public void testSimplyConnectedNodes() throws Exception {
         QuickFind quickFind = new QuickFind(10);
         quickFind.union(2,4);
-        assertEquals(false, quickFind.connected(2,4));
-        assertEquals(true, quickFind.connected(2,5));
+        assertEquals(true, quickFind.connected(2,4));
+        assertEquals(false, quickFind.connected(2,5));
     }
 
     public void testComplexConnectedNodes() throws Exception {

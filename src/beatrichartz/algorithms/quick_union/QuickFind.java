@@ -1,4 +1,4 @@
-package beatrichartz.algorithms;
+package beatrichartz.algorithms.quick_union;
 
 public class QuickFind {
     private int[] nodes;

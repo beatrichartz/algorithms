@@ -1,6 +1,6 @@
-package beatrichartz.algorithms_benchmark;
+package beatrichartz.algorithms_benchmark.quick_union;
 
-import beatrichartz.algorithms.QuickUnion;
+import beatrichartz.algorithms.quick_union.QuickUnion;
 import com.google.caliper.BeforeExperiment;
 import com.google.caliper.Benchmark;
 
