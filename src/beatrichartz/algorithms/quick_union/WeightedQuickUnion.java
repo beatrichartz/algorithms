@@ -26,14 +26,14 @@ public class WeightedQuickUnion {
 
         if (treeSizes[root1] > treeSizes[root2]) {
             nodes[root1] = root2;
-            treeSizes[root1] += treeSizes[root2];
+            treeSizes[root2] += treeSizes[root1];
         } else {
             nodes[root2] = root1;
-            treeSizes[root2] += treeSizes[root1];
+            treeSizes[root1] += treeSizes[root2];
         }
     }
 
-    private int root(int node) {
+    public int root(int node) {
         while (node != nodes[node]) {
             nodes[node] = nodes[nodes[node]];
             node = nodes[node];
@@ -41,5 +41,14 @@ public class WeightedQuickUnion {
 
         return node;
     }
+
+    public int[] getNodes() {
+        return nodes;
+    }
+
+    public int[] getTreeSizes() {
+        return treeSizes;
+    }
+
 
 }
