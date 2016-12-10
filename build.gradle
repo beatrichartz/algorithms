@@ -1,0 +1,63 @@
+group 'com.beatrichartz'
+version '0.1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['test']
+        }
+        resources {
+            srcDirs = ['test/resources']
+        }
+    }
+}
+
+mainClassName = System.getProperty("mainClass")
+
+task runBenchmarks(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+
+    main = 'com.google.caliper.runner.CaliperMain'
+    jvmArgs('-XX:-TieredCompilation')
+
+    if (project.hasProperty('verbose')) {
+        jvmArgs('-XX:+PrintFlagsFinal')
+        jvmArgs('-XX:+PrintCompilation')
+        jvmArgs('-verbose:gc')
+    }
+
+    if (project.hasProperty('benchmark')) {
+        args('beatrichartz.algorithms_benchmark.' + benchmark)
+    }
+}
+
+jar {
+    baseName = 'algorithms'
+    version = '0.1.0'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.google.caliper', name: 'caliper', version: '1.0-beta-2'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-core', version: '1.3'
+    testCompile group: 'junit', name: 'junit-dep', version: '4.10'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
+}
