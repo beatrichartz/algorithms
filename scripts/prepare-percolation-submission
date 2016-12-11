@@ -1,0 +1,21 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pushd $DIR > /dev/null
+
+mkdir ./.tmp-submission
+
+cat ../src/beatrichartz/algorithms/quick_union/examples/percolation/Percolation.java\
+ | sed -e 's/package beatrichartz.algorithms.quick_union.examples.percolation;//'\
+ > ./.tmp-submission/Percolation.java
+
+cat ../src/beatrichartz/algorithms/quick_union/examples/percolation/PercolationStats.java\
+ | sed -e 's/package beatrichartz.algorithms.quick_union.examples.percolation;//'\
+ > ./.tmp-submission/PercolationStats.java
+
+pushd ./.tmp-submission > /dev/null
+zip -D ../percolation.zip *
+popd > /dev/null
+
+rm -r ./.tmp-submission
+popd > /dev/null
