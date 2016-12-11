@@ -10,7 +10,7 @@ public class PercolationStats {
     private double[] percolationThresholds;
 
     public static void main(String[] args) {
-        if (args.length != 2) throw new IllegalArgumentException();
+        if (args.length != 2) { throw new IllegalArgumentException(); }
 
         int sideLength = Integer.decode(args[0]);
         int numTrials = Integer.decode(args[1]);
@@ -18,11 +18,14 @@ public class PercolationStats {
 
         System.out.println("mean\t\t\t\t\t= " + stats.mean());
         System.out.println("stddev\t\t\t\t\t= " + stats.stddev());
-        System.out.println("95% confidence interval\t= " + stats.confidenceLo() + ", " + stats.confidenceHi());
+        System.out.println(
+                "95% confidence interval\t= " +
+                stats.confidenceLo() + ", " +
+                stats.confidenceHi());
     }
 
     public PercolationStats(int sideLength, int numTrials) {
-        if (sideLength <= 0 || numTrials <= 0) throw new IllegalArgumentException();
+        if (sideLength <= 0 || numTrials <= 0) { throw new IllegalArgumentException(); }
 
         this.numTrials = numTrials;
         percolationThresholds = new double[numTrials];

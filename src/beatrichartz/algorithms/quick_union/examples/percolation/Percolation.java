@@ -7,7 +7,8 @@ public class Percolation {
     private final int virtualTopSite;
     private final int virtualBottomSite;
     private boolean[] sites;
-    private WeightedQuickUnionUF unionFind;
+    private WeightedQuickUnionUF fullUnionFind;
+    private WeightedQuickUnionUF unionFindOnlyTop;
 
     public Percolation(int sideLength) {
         if (sideLength <= 0) { throw new IllegalArgumentException(); }
@@ -17,7 +18,8 @@ public class Percolation {
         this.virtualBottomSite = sideLength * sideLength + 1;
         this.sites = new boolean[sideLength * sideLength];
 
-        this.unionFind = new WeightedQuickUnionUF(sideLength * sideLength + 2);
+        this.fullUnionFind = new WeightedQuickUnionUF(sideLength * sideLength + 2);
+        this.unionFindOnlyTop = new WeightedQuickUnionUF(sideLength * sideLength + 1);
 
         for (int i = 0; i < sideLength; i++) {
             for (int j = 0; j < sideLength; j++) {
@@ -27,6 +29,7 @@ public class Percolation {
     }
 
     public void open(int row, int col) {
+        checkIndex(row, col);
         connectOpenSite(row, col, row - 1, col);
         connectOpenSite(row, col, row + 1, col);
         connectOpenSite(row, col, row, col - 1);
@@ -37,29 +40,33 @@ public class Percolation {
 
     private void connectOpenSite(int openRow, int openCol, int toRow, int toCol) {
         int siteIndex = getSiteIndex(openRow, openCol);
-        if (toCol <= 0 || toCol > sideLength) return;
+        if (toCol <= 0 || toCol > sideLength) { return; }
 
         if (toRow <= 0) {
-            unionFind.union(siteIndex, virtualTopSite);
+            fullUnionFind.union(siteIndex, virtualTopSite);
+            unionFindOnlyTop.union(siteIndex, virtualTopSite);
             return;
         }
         if (toRow > sideLength) {
-            unionFind.union(siteIndex, virtualBottomSite);
+            fullUnionFind.union(siteIndex, virtualBottomSite);
             return;
         }
 
-        if (!isOpen(toRow, toCol)) return;
+        if (!isOpen(toRow, toCol)) { return; }
 
-        unionFind.union(siteIndex, getSiteIndex(toRow, toCol));
+        fullUnionFind.union(siteIndex, getSiteIndex(toRow, toCol));
+        unionFindOnlyTop.union(siteIndex, getSiteIndex(toRow, toCol));
     }
 
     public boolean isFull(int row, int col) {
-        if (!isOpen(row, col)) return false;
+        checkIndex(row, col);
+        if (!isOpen(row, col)) { return false; }
 
-        return unionFind.connected(virtualTopSite, getSiteIndex(row, col));
+        return unionFindOnlyTop.connected(virtualTopSite, getSiteIndex(row, col));
     }
 
     public boolean isOpen(int row, int col) {
+        checkIndex(row, col);
         return sites[getSiteIndex(row, col)];
     }
 
@@ -68,7 +75,12 @@ public class Percolation {
     }
 
     public boolean percolates() {
-        return unionFind.connected(virtualTopSite, virtualBottomSite);
+        return fullUnionFind.connected(virtualTopSite, virtualBottomSite);
     }
+
+    private void checkIndex(int row, int col) {
+        if (row > sideLength || row <= 0 || col > sideLength || col <= 0) { throw new IndexOutOfBoundsException(); }
+    }
+
 
 }

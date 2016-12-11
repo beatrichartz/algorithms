@@ -55,25 +55,26 @@ public class PercolationTest {
     }
 
     @Test
-    @Parameters({"3, 2", "2, 3", "1, 0", "0, 1", "-1, 1", "1, -1"})
-    public void testOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int row, int col) throws Exception {
-        Percolation percolation = new Percolation(2);
+    @Parameters({"2, 3, 2", "2, 2, 3", "2, 1, 0", "2, 0, 1", "2, -1, 1", "2, 1, -1", "10, 6, 0", "10, 6, 12"})
+    public void testOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
+        Percolation percolation = new Percolation(sideLength);
         exception.expect(IndexOutOfBoundsException.class);
         percolation.open(row, col);
     }
 
+
     @Test
-    @Parameters({"3, 2", "2, 3", "1, 0", "0, 1", "-1, 1", "1, -1"})
-    public void testIsOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int row, int col) throws Exception {
-        Percolation percolation = new Percolation(2);
+    @Parameters({"2, 3, 2", "2, 2, 3", "2, 1, 0", "2, 0, 1", "2, -1, 1", "2, 1, -1", "10, 6, 0", "10, 6, 12"})
+    public void testIsOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
+        Percolation percolation = new Percolation(sideLength);
         exception.expect(IndexOutOfBoundsException.class);
         percolation.isOpen(row, col);
     }
 
     @Test
-    @Parameters({"3, 2", "2, 3", "1, 0", "0, 1", "-1, 1", "1, -1"})
-    public void testIsFullThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int row, int col) throws Exception {
-        Percolation percolation = new Percolation(2);
+    @Parameters({"2, 3, 2", "2, 2, 3", "2, 1, 0", "2, 0, 1", "2, -1, 1", "2, 1, -1", "10, 6, 0", "10, 6, 12"})
+    public void testIsFullThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
+        Percolation percolation = new Percolation(sideLength);
         exception.expect(IndexOutOfBoundsException.class);
         percolation.isFull(row, col);
     }
@@ -119,5 +120,21 @@ public class PercolationTest {
 
         percolation.open(2,3);
         assertEquals(true, percolation.percolates());
+    }
+
+    @Test
+    public void testDoesNotBackwashWhenPercolates() throws Exception {
+        Percolation percolation = new Percolation(3);
+        assertEquals(false, percolation.percolates());
+
+        percolation.open(1,1);
+        percolation.open(1,2);
+        percolation.open(2,2);
+        percolation.open(3,3);
+        percolation.open(2,3);
+        assertEquals(true, percolation.percolates());
+
+        percolation.open(3, 1);
+        assertEquals(false, percolation.isFull(3, 1));
     }
 }
