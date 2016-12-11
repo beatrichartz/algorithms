@@ -11,12 +11,13 @@ public class PercolationStats {
 
     public static void main(String[] args) {
         if (args.length != 2) throw new IllegalArgumentException();
+
         int sideLength = Integer.decode(args[0]);
         int numTrials = Integer.decode(args[1]);
         PercolationStats stats = new PercolationStats(sideLength, numTrials);
 
-        System.out.println("mean\t\t\t= " + stats.mean());
-        System.out.println("stddev\t\t\t= " + stats.stddev());
+        System.out.println("mean\t\t\t\t\t= " + stats.mean());
+        System.out.println("stddev\t\t\t\t\t= " + stats.stddev());
         System.out.println("95% confidence interval\t= " + stats.confidenceLo() + ", " + stats.confidenceHi());
     }
 

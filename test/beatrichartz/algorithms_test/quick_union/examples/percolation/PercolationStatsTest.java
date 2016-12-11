@@ -74,8 +74,8 @@ public class PercolationStatsTest {
         System.setOut(oldSystemOut);
         System.setErr(oldSystemErr);
 
-        assertEquals(true, outContent.toString().contains("mean\t\t\t= 0.5625"));
-        assertEquals(true, outContent.toString().contains("stddev\t\t\t= 0.065"));
+        assertEquals(true, outContent.toString().contains("mean\t\t\t\t\t= 0.5625"));
+        assertEquals(true, outContent.toString().contains("stddev\t\t\t\t\t= 0.065"));
         assertEquals(true, outContent.toString().contains("95% confidence interval\t= 0.521"));
         assertEquals(true, outContent.toString().contains(", 0.603"));
     }
