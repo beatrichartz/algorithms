@@ -22,7 +22,7 @@ public class LogTest {
     }
 
     @Test
-    public void testCanGetTheMaxNode() throws Exception {
+    public void canGetTheMaxNode() throws Exception {
         log.add(new LogEntry(now.minusMinutes(10), 1, 2));
         log.add(new LogEntry(now.minusMinutes(5), 3, 4));
         log.add(new LogEntry(now, 3, 2));
@@ -31,7 +31,7 @@ public class LogTest {
     }
 
     @Test
-    public void testCanGetTheMaxNodeWhenConnectionIsNotIncremental() throws Exception {
+    public void canGetTheMaxNodeWhenConnectionIsNotIncremental() throws Exception {
         log.add(new LogEntry(now.minusMinutes(10), 1, 2));
         log.add(new LogEntry(now.minusMinutes(5), 3, 1));
         log.add(new LogEntry(now, 2, 4));
@@ -40,7 +40,7 @@ public class LogTest {
     }
 
     @Test
-    public void testReturnsIteratorForEntries() throws Exception {
+    public void returnsIteratorForEntries() throws Exception {
         log.add(new LogEntry(now.minusMinutes(5), 3, 1));
         log.add(new LogEntry(now, 2, 4));
 

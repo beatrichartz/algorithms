@@ -15,7 +15,7 @@ public class PercolationStatsInitializationTest {
 
     @Test
     @Parameters({"0, 1", "1, 0", "-1, 1", "1, -1"})
-    public void testDoesNotAcceptNegativeNumbersOrZeroForConstructorArguments(int sideLength, int numTrials) {
+    public void doesNotAcceptNegativeNumbersOrZeroForConstructorArguments(int sideLength, int numTrials) {
         exception.expect(IllegalArgumentException.class);
         new PercolationStats(sideLength, numTrials);
     }

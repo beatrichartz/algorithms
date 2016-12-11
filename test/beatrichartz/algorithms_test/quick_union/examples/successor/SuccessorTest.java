@@ -8,13 +8,13 @@ import static junit.framework.TestCase.assertEquals;
 public class SuccessorTest {
 
     @Test
-    public void testReturnsItselfWithoutDeletedEntries() throws Exception {
+    public void returnsItselfWithoutDeletedEntries() throws Exception {
         Successor successor = new Successor(10);
         assertEquals(1, successor.find(1));
     }
 
     @Test
-    public void testReturnsSuccessorWhenDeletingEntries() throws Exception {
+    public void returnsSuccessorWhenDeletingEntries() throws Exception {
         Successor successor = new Successor(10);
         successor.delete(2);
         assertEquals(3, successor.find(2));

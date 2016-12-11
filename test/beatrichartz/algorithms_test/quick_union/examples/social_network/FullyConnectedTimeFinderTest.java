@@ -20,7 +20,7 @@ public class FullyConnectedTimeFinderTest {
     }
 
     @Test
-    public void testFindsTimeWhenSocialNetworkFullyConnected() throws Exception {
+    public void findsTimeWhenSocialNetworkFullyConnected() throws Exception {
         log.add(new LogEntry(now.minusMinutes(8), 1, 2));
         log.add(new LogEntry(now.minusMinutes(7), 3, 4));
         log.add(new LogEntry(now.minusMinutes(6), 1, 4));

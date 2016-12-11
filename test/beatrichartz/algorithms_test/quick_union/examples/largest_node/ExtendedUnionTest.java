@@ -8,7 +8,7 @@ import static junit.framework.TestCase.assertEquals;
 public class ExtendedUnionTest {
 
     @Test
-    public void testLargestNode() throws Exception {
+    public void findingLargestNode() throws Exception {
         ExtendedQuickUnion extendedQuickUnion = new ExtendedQuickUnion(10);
         extendedQuickUnion.union(1, 2);
         assertEquals(2, extendedQuickUnion.findLargestNodeInComponent(1));

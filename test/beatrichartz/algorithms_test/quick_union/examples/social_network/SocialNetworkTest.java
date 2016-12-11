@@ -15,7 +15,7 @@ public class SocialNetworkTest {
     }
 
     @Test
-    public void testFullyConnected() throws Exception {
+    public void fullyConnectedIsTrueWhenAllNodesConnected() throws Exception {
         assertEquals(false, socialNetwork.fullyConnected());
         socialNetwork.union(1, 3);
         assertEquals(false, socialNetwork.fullyConnected());

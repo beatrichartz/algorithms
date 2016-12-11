@@ -7,13 +7,13 @@ import static junit.framework.TestCase.assertEquals;
 
 public class QuickFindTest {
     @Test
-    public void testUnconnectedNodes() throws Exception {
+    public void connectedWithUnconnectedNodes() throws Exception {
         QuickFind quickFind = new QuickFind(10);
         assertEquals(false, quickFind.connected(2, 4));
     }
 
     @Test
-    public void testSimplyConnectedNodes() throws Exception {
+    public void connectedWithSimplyConnectedNodes() throws Exception {
         QuickFind quickFind = new QuickFind(10);
         quickFind.union(2,4);
         assertEquals(true, quickFind.connected(2,4));
@@ -21,7 +21,7 @@ public class QuickFindTest {
     }
 
     @Test
-    public void testComplexConnectedNodes() throws Exception {
+    public void connectedWithComplexConnectedNodes() throws Exception {
         QuickFind quickFind = new QuickFind(10);
         quickFind.union(2,4);
         quickFind.union(5,7);
@@ -33,7 +33,7 @@ public class QuickFindTest {
     }
 
     @Test
-    public void testNodesBecomingConnected() throws Exception {
+    public void connectedWithNodesBecomingConnected() throws Exception {
         QuickFind quickFind = new QuickFind(10);
         quickFind.union(2,4);
         quickFind.union(0,7);

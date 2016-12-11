@@ -17,19 +17,19 @@ public class PercolationTest {
     public final ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void testDoesNotAcceptNegativeNumbers() {
+    public void doesNotAcceptNegativeNumbers() {
         exception.expect(IllegalArgumentException.class);
         new Percolation(-1);
     }
 
     @Test
-    public void testDoesNotAcceptZero() {
+    public void doesNotAcceptZero() {
         exception.expect(IllegalArgumentException.class);
         new Percolation(0);
     }
 
     @Test
-    public void testStartsWithAllSitesBlocked() throws Exception {
+    public void startsWithAllSitesBlocked() throws Exception {
         Percolation percolation = new Percolation(2);
 
         assertEquals(false, percolation.isOpen(1,1));
@@ -44,7 +44,7 @@ public class PercolationTest {
     }
 
     @Test
-    public void testCanOpenSites() throws Exception {
+    public void canOpenSites() throws Exception {
         Percolation percolation = new Percolation(2);
         percolation.open(2,2);
 
@@ -56,7 +56,7 @@ public class PercolationTest {
 
     @Test
     @Parameters({"2, 3, 2", "2, 2, 3", "2, 1, 0", "2, 0, 1", "2, -1, 1", "2, 1, -1", "10, 6, 0", "10, 6, 12"})
-    public void testOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
+    public void openThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
         Percolation percolation = new Percolation(sideLength);
         exception.expect(IndexOutOfBoundsException.class);
         percolation.open(row, col);
@@ -65,7 +65,7 @@ public class PercolationTest {
 
     @Test
     @Parameters({"2, 3, 2", "2, 2, 3", "2, 1, 0", "2, 0, 1", "2, -1, 1", "2, 1, -1", "10, 6, 0", "10, 6, 12"})
-    public void testIsOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
+    public void isOpenThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
         Percolation percolation = new Percolation(sideLength);
         exception.expect(IndexOutOfBoundsException.class);
         percolation.isOpen(row, col);
@@ -73,14 +73,14 @@ public class PercolationTest {
 
     @Test
     @Parameters({"2, 3, 2", "2, 2, 3", "2, 1, 0", "2, 0, 1", "2, -1, 1", "2, 1, -1", "10, 6, 0", "10, 6, 12"})
-    public void testIsFullThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
+    public void isFullThrowsIndexOutOfBoundsWhenGivenInvalidNumbers(int sideLength, int row, int col) throws Exception {
         Percolation percolation = new Percolation(sideLength);
         exception.expect(IndexOutOfBoundsException.class);
         percolation.isFull(row, col);
     }
 
     @Test
-    public void testOpeningSitesConnectedToTopFillsSites() throws Exception {
+    public void openingSitesConnectedToTopFillsSites() throws Exception {
         Percolation percolation = new Percolation(3);
         percolation.open(1,1);
 
@@ -106,7 +106,7 @@ public class PercolationTest {
     }
 
     @Test
-    public void testPercolatesWhenPathFromTopToBottomExists() throws Exception {
+    public void percolatesWhenPathFromTopToBottomExists() throws Exception {
         Percolation percolation = new Percolation(3);
         assertEquals(false, percolation.percolates());
 
@@ -123,7 +123,7 @@ public class PercolationTest {
     }
 
     @Test
-    public void testDoesNotBackwashWhenPercolates() throws Exception {
+    public void doesNotBackwashWhenPercolates() throws Exception {
         Percolation percolation = new Percolation(3);
         assertEquals(false, percolation.percolates());
 

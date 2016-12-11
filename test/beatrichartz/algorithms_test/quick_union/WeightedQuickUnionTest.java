@@ -8,13 +8,13 @@ import static junit.framework.TestCase.assertEquals;
 public class WeightedQuickUnionTest {
 
     @Test
-    public void testUnconnectedNodes() throws Exception {
+    public void connectedWithUnconnectedNodes() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         assertEquals(false, weightedQuickUnion.connected(2, 4));
     }
 
     @Test
-    public void testSimplyConnectedNodes() throws Exception {
+    public void connectedWithSimplyConnectedNodes() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         weightedQuickUnion.union(2,4);
         assertEquals(true, weightedQuickUnion.connected(2,4));
@@ -22,7 +22,7 @@ public class WeightedQuickUnionTest {
     }
 
     @Test
-    public void testComplexConnectedNodes() throws Exception {
+    public void connectedWithComplexConnectedNodes() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         weightedQuickUnion.union(2,4);
         weightedQuickUnion.union(5,7);
@@ -34,7 +34,7 @@ public class WeightedQuickUnionTest {
     }
 
     @Test
-    public void testNodesBecomingConnected() throws Exception {
+    public void connectedWithNodesBecomingConnected() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         weightedQuickUnion.union(2,4);
         weightedQuickUnion.union(0,7);

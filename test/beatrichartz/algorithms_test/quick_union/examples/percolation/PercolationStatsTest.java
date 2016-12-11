@@ -48,7 +48,7 @@ public class PercolationStatsTest {
     }
 
     @Test
-    public void testRunsNTrialsAndCalculatesStats() throws Exception {
+    public void runsNTrialsAndCalculatesStats() throws Exception {
         PercolationStats stats = new PercolationStats(4, 10);
         verifyNew(Percolation.class, times(10)).withArguments(4);
 
@@ -59,7 +59,7 @@ public class PercolationStatsTest {
     }
 
     @Test
-    public void testMainPrintsResults() throws Exception {
+    public void mainPrintsResults() throws Exception {
         PrintStream oldSystemOut = System.out;
         PrintStream oldSystemErr = System.err;
 
