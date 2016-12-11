@@ -1,15 +1,19 @@
 package beatrichartz.algorithms_test.quick_union.examples.successor;
 
 import beatrichartz.algorithms.quick_union.examples.successor.Successor;
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class SuccessorTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
 
+public class SuccessorTest {
+
+    @Test
     public void testReturnsItselfWithoutDeletedEntries() throws Exception {
         Successor successor = new Successor(10);
         assertEquals(1, successor.find(1));
     }
 
+    @Test
     public void testReturnsSuccessorWhenDeletingEntries() throws Exception {
         Successor successor = new Successor(10);
         successor.delete(2);

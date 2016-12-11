@@ -1,9 +1,13 @@
 package beatrichartz.algorithms_test.quick_union.examples.largest_node;
 
 import beatrichartz.algorithms.quick_union.examples.largest_node.ExtendedQuickUnion;
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class ExtendedUnionTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
+
+public class ExtendedUnionTest {
+
+    @Test
     public void testLargestNode() throws Exception {
         ExtendedQuickUnion extendedQuickUnion = new ExtendedQuickUnion(10);
         extendedQuickUnion.union(1, 2);

@@ -1,14 +1,19 @@
 package beatrichartz.algorithms_test.quick_union;
 
 import beatrichartz.algorithms.quick_union.WeightedQuickUnion;
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class WeightedQuickUnionTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
+
+public class WeightedQuickUnionTest {
+
+    @Test
     public void testUnconnectedNodes() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         assertEquals(false, weightedQuickUnion.connected(2, 4));
     }
 
+    @Test
     public void testSimplyConnectedNodes() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         weightedQuickUnion.union(2,4);
@@ -16,6 +21,7 @@ public class WeightedQuickUnionTest extends TestCase {
         assertEquals(false, weightedQuickUnion.connected(2,5));
     }
 
+    @Test
     public void testComplexConnectedNodes() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         weightedQuickUnion.union(2,4);
@@ -27,6 +33,7 @@ public class WeightedQuickUnionTest extends TestCase {
         assertEquals(false, weightedQuickUnion.connected(0,8));
     }
 
+    @Test
     public void testNodesBecomingConnected() throws Exception {
         WeightedQuickUnion weightedQuickUnion = new WeightedQuickUnion(10);
         weightedQuickUnion.union(2,4);

@@ -2,14 +2,16 @@ package beatrichartz.algorithms_test.quick_union.examples.social_network;
 
 import beatrichartz.algorithms.quick_union.examples.social_network.Log;
 import beatrichartz.algorithms.quick_union.examples.social_network.LogEntry;
-import junit.framework.TestCase;
 import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
 
-public class LogTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+
+public class LogTest {
     private LocalDateTime now;
     private Log log;
 

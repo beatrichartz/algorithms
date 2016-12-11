@@ -1,16 +1,20 @@
 package beatrichartz.algorithms_test.quick_union.examples.social_network;
 
 import beatrichartz.algorithms.quick_union.examples.social_network.SocialNetwork;
-import junit.framework.TestCase;
+import org.junit.Before;
+import org.junit.Test;
 
-public class SocialNetworkTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
 
+public class SocialNetworkTest {
     private SocialNetwork socialNetwork;
 
+    @Before
     public void setUp() throws Exception {
         socialNetwork = new SocialNetwork(4);
     }
 
+    @Test
     public void testFullyConnected() throws Exception {
         assertEquals(false, socialNetwork.fullyConnected());
         socialNetwork.union(1, 3);

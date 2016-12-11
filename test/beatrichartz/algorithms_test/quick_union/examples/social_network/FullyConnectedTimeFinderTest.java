@@ -1,21 +1,25 @@
 package beatrichartz.algorithms_test.quick_union.examples.social_network;
 
+import beatrichartz.algorithms.quick_union.examples.social_network.FullyConnectedTimeFinder;
 import beatrichartz.algorithms.quick_union.examples.social_network.Log;
 import beatrichartz.algorithms.quick_union.examples.social_network.LogEntry;
-import beatrichartz.algorithms.quick_union.examples.social_network.FullyConnectedTimeFinder;
-import junit.framework.TestCase;
 import org.joda.time.LocalDateTime;
+import org.junit.Before;
+import org.junit.Test;
 
-public class FullyConnectedTimeFinderTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
+
+public class FullyConnectedTimeFinderTest {
     private Log log;
     private LocalDateTime now;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
         now = LocalDateTime.now();
         log = new Log();
     }
 
+    @Test
     public void testFindsTimeWhenSocialNetworkFullyConnected() throws Exception {
         log.add(new LogEntry(now.minusMinutes(8), 1, 2));
         log.add(new LogEntry(now.minusMinutes(7), 3, 4));

@@ -1,14 +1,18 @@
 package beatrichartz.algorithms_test.quick_union;
 
 import beatrichartz.algorithms.quick_union.QuickUnion;
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class QuickUnionTest extends TestCase {
+import static junit.framework.TestCase.assertEquals;
+
+public class QuickUnionTest {
+    @Test
     public void testUnconnectedNodes() throws Exception {
         QuickUnion quickUnion = new QuickUnion(10);
         assertEquals(false, quickUnion.connected(2, 4));
     }
 
+    @Test
     public void testSimplyConnectedNodes() throws Exception {
         QuickUnion quickUnion = new QuickUnion(10);
         quickUnion.union(2,4);
@@ -16,6 +20,7 @@ public class QuickUnionTest extends TestCase {
         assertEquals(false, quickUnion.connected(2,5));
     }
 
+    @Test
     public void testComplexConnectedNodes() throws Exception {
         QuickUnion quickUnion = new QuickUnion(10);
         quickUnion.union(2,4);
@@ -27,6 +32,7 @@ public class QuickUnionTest extends TestCase {
         assertEquals(false, quickUnion.connected(0,8));
     }
 
+    @Test
     public void testNodesBecomingConnected() throws Exception {
         QuickUnion quickUnion = new QuickUnion(10);
         quickUnion.union(2,4);
