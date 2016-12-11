@@ -40,5 +40,15 @@
     <orderEntry type="library" name="Gradle: org.ow2.asm:asm-util:5.0.3" level="project" />
     <orderEntry type="library" name="Gradle: org.ow2.asm:asm-xml:5.0.3" level="project" />
     <orderEntry type="library" name="Gradle: asm:asm:3.1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: algs4">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/algs4.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" scope="TEST" name="Gradle: pl.pragmatists:JUnitParams:1.0.5" level="project" />
   </component>
 </module>
