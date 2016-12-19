@@ -95,4 +95,34 @@ public class EggDropSolver {
 
         return -1;
     }
+
+    public static int solveWithConstantTimesSquareRootToFloorTries(EggDrop eggDrop) {
+        int start = 1;
+        int increase = 1;
+        while (true) {
+            int numEggsBeforeToss = eggDrop.getNumEggs();
+            eggDrop.tossFromFloor(start);
+            int numEggsAfterToss = eggDrop.getNumEggs();
+
+            if (numEggsBeforeToss != numEggsAfterToss) {
+                break;
+            } else if (eggDrop.checkIsRightFloor(start)) {
+                return start;
+            } else {
+                increase += 1;
+                start += increase;
+            }
+        }
+
+        for (int i = start - increase; i <= start; i++) {
+            int numEggsBeforeToss = eggDrop.getNumEggs();
+            eggDrop.tossFromFloor(i);
+            int numEggsAfterToss = eggDrop.getNumEggs();
+            if (numEggsBeforeToss != numEggsAfterToss) {
+                return i - 1;
+            }
+        }
+
+        return -1;
+    }
 }
