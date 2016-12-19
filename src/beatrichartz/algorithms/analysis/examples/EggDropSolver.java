@@ -28,10 +28,22 @@ public class EggDropSolver {
     }
 
     public static int solveWithLnToFloorTries(EggDrop eggDrop) {
-        int maxFloor = doubleSearchEggDrop(eggDrop);
-        if (eggDrop.checkIsRightFloor(maxFloor)) return maxFloor;
+        int start = 1;
+        while (true) {
+            int numEggsBeforeToss = eggDrop.getNumEggs();
+            eggDrop.tossFromFloor(start);
+            int numEggsAfterToss = eggDrop.getNumEggs();
 
-        return binarySearchEggDrop(eggDrop, maxFloor/2, maxFloor);
+            if (numEggsBeforeToss != numEggsAfterToss) {
+                break;
+            } else if (eggDrop.checkIsRightFloor(start)) {
+                return start;
+            } else {
+                start *= 2;
+            }
+        }
+
+        return binarySearchEggDrop(eggDrop, start/2, start);
     }
 
     public static int solveWithTwiceSquareRootToNumFloorsTries(EggDrop eggDrop) {
@@ -63,23 +75,6 @@ public class EggDropSolver {
         }
 
         return -1;
-    }
-
-    private static int doubleSearchEggDrop(EggDrop eggDrop) {
-        int start = 1;
-        while (true) {
-            int numEggsBeforeToss = eggDrop.getNumEggs();
-            eggDrop.tossFromFloor(start);
-            int numEggsAfterToss = eggDrop.getNumEggs();
-
-            if (numEggsBeforeToss != numEggsAfterToss) {
-                return start;
-            } else if (eggDrop.checkIsRightFloor(start)) {
-                return start;
-            } else {
-                start *= 2;
-            }
-        }
     }
 
     private static int binarySearchEggDrop(EggDrop eggDrop, int start, int end) {
