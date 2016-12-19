@@ -28,17 +28,32 @@ public class EggDropSolver {
     }
 
     public static int solveWithLnToFloorTries(EggDrop eggDrop) {
-        int maxFloor = exponentialSearchEggDrop(eggDrop);
+        int maxFloor = doubleSearchEggDrop(eggDrop);
         if (eggDrop.checkIsRightFloor(maxFloor)) return maxFloor;
 
         return binarySearchEggDrop(eggDrop, maxFloor/2, maxFloor);
     }
 
     public static int solveWithTwiceSquareRootToNumFloorsTries(EggDrop eggDrop) {
-        int maxFloor = exponentialSearchEggDrop(eggDrop);
-        if (eggDrop.checkIsRightFloor(maxFloor)) return maxFloor;
+        int start = 1;
+        int increase = (int) Math.floor(Math.sqrt((double) eggDrop.getNumFloors()));
+        while (true) {
+            int numEggsBeforeToss = eggDrop.getNumEggs();
+            eggDrop.tossFromFloor(start);
+            int numEggsAfterToss = eggDrop.getNumEggs();
 
-        for (int i = maxFloor/2; i < maxFloor; i++) {
+            if (numEggsBeforeToss != numEggsAfterToss) {
+                break;
+            } else if (eggDrop.checkIsRightFloor(start)) {
+                return start;
+            } else {
+                start += increase;
+            }
+        }
+
+        if (eggDrop.checkIsRightFloor(start)) return start;
+
+        for (int i = start - increase; i < start; i++) {
             int numEggsBeforeToss = eggDrop.getNumEggs();
             eggDrop.tossFromFloor(i);
             int numEggsAfterToss = eggDrop.getNumEggs();
@@ -50,7 +65,7 @@ public class EggDropSolver {
         return -1;
     }
 
-    private static int exponentialSearchEggDrop(EggDrop eggDrop) {
+    private static int doubleSearchEggDrop(EggDrop eggDrop) {
         int start = 1;
         while (true) {
             int numEggsBeforeToss = eggDrop.getNumEggs();
