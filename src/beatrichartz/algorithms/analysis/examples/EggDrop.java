@@ -5,6 +5,7 @@ public class EggDrop {
     private int numEggs;
     private final int floor;
     private int numFloors;
+    private int numTosses;
 
     public EggDrop(int numEggs, int numFloors, int floor) {
         this.numEggs = numEggs;
@@ -15,6 +16,8 @@ public class EggDrop {
     public void tossFromFloor(int floor) {
         if (numEggs <= 0) throw new RuntimeException("You are out of eggs to toss");
         if (floor > this.numFloors) throw new RuntimeException("Can not toss from above the building");
+
+        numTosses++;
         if (floor > this.floor) numEggs--;
     }
 
@@ -31,5 +34,9 @@ public class EggDrop {
 
         hasCheckedFloor = numEggs == 0;
         return this.floor == floor;
+    }
+
+    public int getNumTosses() {
+        return numTosses;
     }
 }

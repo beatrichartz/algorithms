@@ -46,6 +46,18 @@ public class EggDropTest {
     }
 
     @Test
+    public void increasesNumTossesWithEveryToss() throws Exception {
+        EggDrop eggDrop = new EggDrop(10, 100, 30);
+        assertEquals(0, eggDrop.getNumTosses());
+
+        eggDrop.tossFromFloor(1);
+        assertEquals(1, eggDrop.getNumTosses());
+
+        eggDrop.tossFromFloor(2);
+        assertEquals(2, eggDrop.getNumTosses());
+    }
+
+    @Test
     public void breaksAnEggIfTossedFromTooHighUp() throws Exception {
         EggDrop eggDrop = new EggDrop(10, 100, 30);
         assertEquals(10, eggDrop.getNumEggs());
