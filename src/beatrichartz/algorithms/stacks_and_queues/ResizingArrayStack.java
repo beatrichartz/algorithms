@@ -12,6 +12,7 @@ public class ResizingArrayStack<T> implements Stack<T> {
    }
 
    public ResizingArrayStack(int initialCapacity) {
+      // type unsafe, but elements are only used internally
       this.elements = (T[]) new Object[initialCapacity];
    }
 
