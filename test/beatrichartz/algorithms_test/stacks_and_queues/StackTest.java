@@ -21,7 +21,7 @@ import static junit.framework.TestCase.assertEquals;
 @RunWith(value = Parameterized.class)
 public class StackTest {
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{0}")
     public static Collection data() {
         List<Object> collection = new ArrayList();
         collection.add(LinkedListStack.class);
