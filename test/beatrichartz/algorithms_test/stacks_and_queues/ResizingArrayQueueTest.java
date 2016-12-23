@@ -1,14 +1,21 @@
 package beatrichartz.algorithms_test.stacks_and_queues;
 
 import beatrichartz.algorithms.stacks_and_queues.ResizingArrayQueue;
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
 public class ResizingArrayQueueTest {
+    private ResizingArrayQueue<Integer> resizingArrayQueue;
+
+    @Before
+    public void setUp() throws Exception {
+        resizingArrayQueue = new ResizingArrayQueue(2);
+    }
+
     @Test
     public void resizesQueueWhenEnqueuingBeyondCapacity() throws Exception {
-        ResizingArrayQueue<Integer> resizingArrayQueue = new ResizingArrayQueue(2);
         for (int i = 0; i < 20; i++) {
             resizingArrayQueue.enqueue(i);
         }
@@ -21,8 +28,7 @@ public class ResizingArrayQueueTest {
     }
 
     @Test
-    public void resizesQueueToOptimalCapacityWithElementsBeingDequeuedContinuously() throws Exception {
-        ResizingArrayQueue<Integer> resizingArrayQueue = new ResizingArrayQueue(2);
+    public void resizesQueueWithElementsBeingDequeuedContinuously() throws Exception {
         int cursor = 0;
         for (int i = 0; i < 100; i++) {
             resizingArrayQueue.enqueue(i);
