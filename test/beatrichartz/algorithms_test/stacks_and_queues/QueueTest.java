@@ -3,6 +3,7 @@ package beatrichartz.algorithms_test.stacks_and_queues;
 import beatrichartz.algorithms.stacks_and_queues.LinkedListQueue;
 import beatrichartz.algorithms.stacks_and_queues.Queue;
 import beatrichartz.algorithms.stacks_and_queues.ResizingArrayQueue;
+import beatrichartz.algorithms.stacks_and_queues.examples.QueueOfStacks;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,6 +25,7 @@ public class QueueTest {
         List<Object> collection = new ArrayList();
         collection.add(LinkedListQueue.class);
         collection.add(ResizingArrayQueue.class);
+        collection.add(QueueOfStacks.class);
         return collection;
     }
 

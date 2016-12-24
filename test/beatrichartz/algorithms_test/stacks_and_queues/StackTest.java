@@ -51,6 +51,14 @@ public class StackTest {
     }
 
     @Test
+    public void isEmptyReturnsFlagAccordingToStackState() throws Exception {
+        assertEquals(true, stack.isEmpty());
+        stack.push("A");
+
+        assertEquals(false, stack.isEmpty());
+    }
+
+    @Test
     public void popReturnsLastPushedItem() throws Exception {
         stack.push("A");
         assertEquals("A", stack.pop());

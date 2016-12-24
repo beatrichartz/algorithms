@@ -15,8 +15,12 @@ public class LinkedListStack<T> implements Stack<T> {
 
     private Node first;
 
+    public boolean isEmpty() {
+        return first == null;
+    }
+
     public T pop() {
-        if (first == null) throw new EmptyStackException();
+        if (isEmpty()) throw new EmptyStackException();
 
         T returnElement = first.element;
         this.first = first.next;
