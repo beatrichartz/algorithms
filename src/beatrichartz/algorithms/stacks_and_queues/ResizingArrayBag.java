@@ -4,12 +4,12 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ResizingArrayBag<T> implements Bag<T> {
-    private static final int BOTTOM = 0;
-    private int size = BOTTOM;
+    protected static final int BOTTOM = 0;
+    protected int size = BOTTOM;
 
-    private T[] elements;
+    protected T[] elements;
 
-    private class BagIterator implements Iterator<T> {
+    protected class BagIterator implements Iterator<T> {
         private final T[] elements;
         private int cursor = BOTTOM;
 

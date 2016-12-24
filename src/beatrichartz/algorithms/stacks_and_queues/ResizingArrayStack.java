@@ -3,9 +3,9 @@ package beatrichartz.algorithms.stacks_and_queues;
 import java.util.EmptyStackException;
 
 public class ResizingArrayStack<T> implements Stack<T> {
-    private static final int BOTTOM = -1;
-    private T[] elements;
-    private int cursor = BOTTOM;
+    protected static final int BOTTOM = -1;
+    protected T[] elements;
+    protected int cursor = BOTTOM;
 
     public ResizingArrayStack() {
         this(10);

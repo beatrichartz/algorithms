@@ -1,7 +1,7 @@
 package beatrichartz.algorithms.stacks_and_queues;
 
 public class LinkedListQueue<T> implements Queue<T> {
-    private class Node {
+    protected class Node {
         private T element;
         private Node next;
 
@@ -11,8 +11,8 @@ public class LinkedListQueue<T> implements Queue<T> {
         }
     }
 
-    private Node first;
-    private Node last;
+    protected Node first;
+    protected Node last;
 
     public void enqueue(T element) {
         Node newNode = new Node(element, null);

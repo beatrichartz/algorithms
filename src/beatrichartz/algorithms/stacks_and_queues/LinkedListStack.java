@@ -3,7 +3,7 @@ package beatrichartz.algorithms.stacks_and_queues;
 import java.util.EmptyStackException;
 
 public class LinkedListStack<T> implements Stack<T> {
-    private class Node {
+    protected class Node {
         private T element;
         private Node next;
 
@@ -13,7 +13,7 @@ public class LinkedListStack<T> implements Stack<T> {
         }
     }
 
-    private Node first;
+    protected Node first;
 
     public boolean isEmpty() {
         return first == null;

@@ -5,11 +5,11 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedListBag<T> implements Bag<T> {
-    private int size;
-    private Node first;
-    private Node last;
+    protected int size;
+    protected Node first;
+    protected Node last;
 
-    private class Node {
+    protected class Node {
         private T element;
         private Node next;
 
@@ -19,7 +19,7 @@ public class LinkedListBag<T> implements Bag<T> {
         }
     }
 
-    private class BagIterator implements Iterator<T> {
+    protected class BagIterator implements Iterator<T> {
         private Node node;
 
         public BagIterator(Node node) {
