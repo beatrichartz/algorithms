@@ -1,10 +1,10 @@
 package beatrichartz.algorithms.stacks_and_queues;
 
 public class ResizingArrayQueue<T> implements Queue<T> {
-    protected static final int BOTTOM = 0;
-    protected T[] elements;
-    protected int firstCursor = BOTTOM;
-    protected int lastCursor = BOTTOM;
+    private static final int BOTTOM = 0;
+    private T[] elements;
+    private int firstCursor = BOTTOM;
+    private int lastCursor = BOTTOM;
 
     public ResizingArrayQueue() {
         this(10);

@@ -4,10 +4,18 @@ import java.util.EmptyStackException;
 
 public class LinkedListStack<T> implements Stack<T> {
     protected class Node {
-        private T element;
-        private Node next;
+        protected T element;
+        protected Node next;
 
-        private Node(T element, Node next) {
+        public T getElement() {
+            return element;
+        }
+
+        public Node getNext() {
+            return next;
+        }
+
+        public Node(T element, Node next) {
             this.element = element;
             this.next = next;
         }

@@ -2,8 +2,16 @@ package beatrichartz.algorithms.stacks_and_queues;
 
 public class LinkedListQueue<T> implements Queue<T> {
     protected class Node {
-        private T element;
-        private Node next;
+        protected T element;
+        protected Node next;
+
+        public T getElement() {
+            return element;
+        }
+
+        public Node getNext() {
+            return next;
+        }
 
         public Node(T element, Node next) {
             this.element = element;
