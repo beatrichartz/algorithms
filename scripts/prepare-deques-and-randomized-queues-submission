@@ -1,0 +1,25 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pushd $DIR > /dev/null
+
+mkdir ./.tmp-submission
+
+cat ../src/beatrichartz/algorithms/stacks_and_queues/examples/Deque.java\
+ | sed -e 's/package beatrichartz.algorithms.stacks_and_queues.examples;//'\
+ > ./.tmp-submission/Deque.java
+
+cat ../src/beatrichartz/algorithms/stacks_and_queues/examples/RandomizedQueue.java\
+ | sed -e 's/package beatrichartz.algorithms.stacks_and_queues.examples;//'\
+ > ./.tmp-submission/RandomizedQueue.java
+
+cat ../src/beatrichartz/algorithms/stacks_and_queues/examples/Permutation.java\
+ | sed -e 's/package beatrichartz.algorithms.stacks_and_queues.examples;//'\
+ > ./.tmp-submission/Permutation.java
+
+pushd ./.tmp-submission > /dev/null
+zip -D ../deques-and-randomized-queues.zip *
+popd > /dev/null
+
+rm -r ./.tmp-submission
+popd > /dev/null

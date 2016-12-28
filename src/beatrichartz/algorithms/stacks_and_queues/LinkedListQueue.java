@@ -9,10 +9,6 @@ public class LinkedListQueue<T> implements Queue<T> {
             return element;
         }
 
-        public Node getNext() {
-            return next;
-        }
-
         public Node(T element, Node next) {
             this.element = element;
             this.next = next;
