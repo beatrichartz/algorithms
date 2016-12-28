@@ -17,11 +17,7 @@ public class ResizingArrayQueue<T> implements Queue<T> {
 
     public void enqueue(T element) {
         if (lastCursor == elements.length) {
-            T[] newElements = (T[]) new Object[elements.length * 2];
-            System.arraycopy(elements, firstCursor, newElements, 0, lastCursor - firstCursor);
-            lastCursor -= firstCursor;
-            firstCursor = BOTTOM;
-            elements = newElements;
+            resizeElements(elements.length * 2);
         }
 
         elements[lastCursor++] = element;
@@ -29,13 +25,26 @@ public class ResizingArrayQueue<T> implements Queue<T> {
 
     public T dequeue() {
         T element = elements[firstCursor];
-        elements[firstCursor++] = null;
+        elements[firstCursor] = null;
+        if (lastCursor - firstCursor <= elements.length / 2) {
+            resizeElements(elements.length / 2);
+        }
 
+        firstCursor++;
         if (isEmpty()) firstCursor = lastCursor = BOTTOM;
+
         return element;
     }
 
+    private void resizeElements(int newCapacity) {
+        T[] newElements = (T[]) new Object[newCapacity];
+        System.arraycopy(elements, firstCursor, newElements, 0, lastCursor - firstCursor);
+        lastCursor -= firstCursor;
+        firstCursor = BOTTOM;
+        elements = newElements;
+    }
+
     private boolean isEmpty() {
-        return elements[firstCursor] == null;
+        return firstCursor >= lastCursor;
     }
 }

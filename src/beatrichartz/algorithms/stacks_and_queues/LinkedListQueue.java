@@ -21,19 +21,19 @@ public class LinkedListQueue<T> implements Queue<T> {
     public void enqueue(T element) {
         Node newNode = new Node(element, null);
         if (isEmpty()) {
-            this.last = this.first = newNode;
+            last = first = newNode;
             return;
         }
 
-        this.last.next = newNode;
-        this.last = this.last.next;
+        last.next = newNode;
+        last = last.next;
     }
 
     public T dequeue() {
         if (isEmpty()) return null;
 
         T element = first.element;
-        this.first = first.next;
+        first = first.next;
 
         if (isEmpty()) last = null;
 
@@ -41,7 +41,7 @@ public class LinkedListQueue<T> implements Queue<T> {
     }
 
     private boolean isEmpty() {
-        return this.first == null;
+        return first == null;
     }
 
 }

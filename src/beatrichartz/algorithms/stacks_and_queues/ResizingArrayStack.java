@@ -27,16 +27,24 @@ public class ResizingArrayStack<T> implements Stack<T> {
         elements[cursor] = null;
         cursor--;
 
+        if (cursor <= elements.length / 2) {
+            resizeElements(elements.length / 2 + 1);
+        }
+
         return element;
     }
 
     public void push(T elem) {
         if (elements.length == cursor + 1) {
-            T[] newElements = (T[]) new Object[elements.length * 2];
-            System.arraycopy(elements, 0, newElements, 0, elements.length);
-            this.elements = newElements;
+            resizeElements(elements.length * 2);
         }
 
         elements[++cursor] = elem;
+    }
+
+    private void resizeElements(int newCapacity) {
+        T[] newElements = (T[]) new Object[newCapacity];
+        System.arraycopy(elements, 0, newElements, 0, Math.min(elements.length, newElements.length));
+        this.elements = newElements;
     }
 }
