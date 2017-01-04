@@ -1,9 +1,6 @@
 package beatrichartz.algorithms_test.sorting;
 
-import beatrichartz.algorithms.sorting.InsertionSort;
-import beatrichartz.algorithms.sorting.SelectionSort;
-import beatrichartz.algorithms.sorting.ShellSort;
-import beatrichartz.algorithms.sorting.Sort;
+import beatrichartz.algorithms.sorting.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +20,8 @@ public class SortTest {
         collection.add(SelectionSort.class);
         collection.add(InsertionSort.class);
         collection.add(ShellSort.class);
+        collection.add(TopDownMergeSort.class);
+        collection.add(BottomUpMergeSort.class);
         return collection;
     }
 
@@ -47,6 +46,25 @@ public class SortTest {
         for (int i = 0; i < expected.length; i++) {
             assertEquals("Unexpected object in position " + i,
                     expected[i], actual[i]);
+        }
+    }
+
+    @Test
+    public void sortsLargeInputDescending() throws Exception {
+        Integer[] input = new Integer[1_000];
+        for (int i = 0; i < 1_000; i++) {
+            input[i] = (int) Math.ceil(Math.random() * 1_000_000);
+        }
+
+        Integer[] output = sort.sort(input);
+        Integer last = output[0];
+        for (int i = 1; i < 1_000; i++) {
+            assertEquals(
+                    "Expected output " + output[i] +
+                    " in position " + i +
+                    " to be greater than or equal to " + last,
+                    true, last <= output[i]);
+            last = output[i];
         }
     }
 }

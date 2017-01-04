@@ -7,7 +7,6 @@ public class ShellSort<T extends Comparable<T>> extends Sort<T> {
         while (h >= 1) {
             for (int i = 0; i < elements.length; i++) {
                 for (int j = i; j >= h; j -= h) {
-                    System.out.println(j);
                     if (isLessThan(elements, j, j-h))
                         swap(elements, j, j-h);
                 }
