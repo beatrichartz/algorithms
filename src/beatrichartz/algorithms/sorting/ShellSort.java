@@ -1,9 +1,10 @@
 package beatrichartz.algorithms.sorting;
 
 public class ShellSort<T extends Comparable<T>> extends Sort<T> {
+    private int factor = 100;
     public T[] sort(T[] elements) {
         int h = 1;
-        while (h < elements.length / 3) h = h * 3 + 1;
+        while (h < elements.length / factor) h = h * factor + 1;
         while (h >= 1) {
             for (int i = 0; i < elements.length; i++) {
                 for (int j = i; j >= h; j -= h) {
@@ -11,7 +12,7 @@ public class ShellSort<T extends Comparable<T>> extends Sort<T> {
                         swap(elements, j, j-h);
                 }
             }
-            h /= 3;
+            h /= factor;
         }
         return elements;
     }

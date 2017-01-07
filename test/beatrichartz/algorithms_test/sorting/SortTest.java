@@ -51,14 +51,14 @@ public class SortTest {
 
     @Test
     public void sortsLargeInputDescending() throws Exception {
-        Integer[] input = new Integer[1_000];
-        for (int i = 0; i < 1_000; i++) {
-            input[i] = (int) Math.ceil(Math.random() * 1_000_000);
+        Integer[] input = new Integer[10_000];
+        for (int i = 0; i < 10_000; i++) {
+            input[i] = (int) Math.ceil(Math.random() * 1_000_000) - 100_000;
         }
 
         Integer[] output = sort.sort(input);
         Integer last = output[0];
-        for (int i = 1; i < 1_000; i++) {
+        for (int i = 1; i < 10_000; i++) {
             assertEquals(
                     "Expected output " + output[i] +
                     " in position " + i +

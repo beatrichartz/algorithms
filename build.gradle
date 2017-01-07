@@ -43,6 +43,14 @@ task runBenchmarks(type: JavaExec) {
     if (project.hasProperty('benchmark')) {
         args('beatrichartz.algorithms_benchmark.' + benchmark)
     }
+
+    if (project.hasProperty('size')) {
+        args('-Dsize=' + size)
+    }
+
+    if (project.hasProperty('inputType')) {
+        args('-DinputType=' + inputType)
+    }
 }
 
 jar {

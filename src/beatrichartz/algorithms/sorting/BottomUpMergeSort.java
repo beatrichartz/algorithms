@@ -20,9 +20,7 @@ public class BottomUpMergeSort<T extends Comparable<T>> extends Sort<T> {
     private void merge(T[] elements, T[] aux, int low, int mid, int high) {
         int i = low, j = mid + 1;
 
-        for (int k = 0; k <= high; k++) {
-            aux[k] = elements[k];
-        }
+        System.arraycopy(elements, 0, aux, 0, high + 1);
 
         for (int k = low; k <= high; k++) {
             if (i > mid)

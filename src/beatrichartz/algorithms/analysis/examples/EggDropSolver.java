@@ -5,11 +5,11 @@ Egg drop. Suppose that you have an n-story building (with floors 1 through n) an
 it is dropped from floor T or higher and does not break otherwise. Your goal is to devise a strategy to determine the
 value of T given the following limitations on the number of eggs and tosses:
 
-    Version 0: 1 egg, ≤T tosses.
-    Version 1: ∼1lg⁡n eggs and ∼1lg⁡n tosses.
-    Version 2: ∼lg⁡T eggs and ∼2lg⁡T tosses.
-    Version 3: 2 eggs and ∼2n tosses.
-    Version 4: 2 eggs and ≤cT tosses for some fixed constant c
+    Version 0: 1 egg, greater than or equal to T tosses.
+    Version 1: about 1lgn eggs and about 1lgn tosses.
+    Version 2: about lgT eggs and about 2lgT tosses.
+    Version 3: 2 eggs and about 2n tosses.
+    Version 4: 2 eggs and greater than or equal to cT tosses for some fixed constant c
  */
 public class EggDropSolver {
     public static int solveWithUpToFloorTries(EggDrop eggDrop) {

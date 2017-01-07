@@ -3,8 +3,6 @@ package beatrichartz.algorithms.sorting;
 import java.util.Arrays;
 
 public class TopDownMergeSort<T extends Comparable<T>> extends Sort<T> {
-    private static final int INSERTION_SORT_THRESHOLD = 4;
-
     public T[] sort(T[] elements) {
         T[] aux = Arrays.copyOf(elements, elements.length);
 
@@ -14,26 +12,12 @@ public class TopDownMergeSort<T extends Comparable<T>> extends Sort<T> {
 
     private void sort(T[] elements, T[] aux, int low, int high) {
         if (high <= low) return;
-        else if (high <= low + INSERTION_SORT_THRESHOLD) {
-            insertionSort(aux, low, high);
-            return;
-        }
 
         int mid = low + (high - low) / 2;
         sort(aux, elements, low, mid);
         sort(aux, elements, mid + 1, high);
 
-        if (isLessThan(elements, mid + 1, mid)) return;
         merge(elements, aux, low, mid, high);
-    }
-
-    private void insertionSort(T[] elements, int low, int high) {
-        for (int i = low; i <= high; i++) {
-            for (int j = i; j > 0; j--) {
-                if (isGreaterThan(elements, j-1, j))
-                    swap(elements, j-1, j);
-            }
-        }
     }
 
     private void merge(T[] elements, T[] aux, int low, int mid, int high) {
