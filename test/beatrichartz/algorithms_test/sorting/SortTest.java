@@ -21,6 +21,7 @@ public class SortTest {
         collection.add(InsertionSort.class);
         collection.add(ShellSort.class);
         collection.add(BubbleSort.class);
+        collection.add(QuickSort.class);
         collection.add(TopDownMergeSort.class);
         collection.add(BottomUpMergeSort.class);
         return collection;
