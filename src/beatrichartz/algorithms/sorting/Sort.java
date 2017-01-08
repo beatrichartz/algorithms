@@ -17,10 +17,6 @@ abstract public class Sort<T extends Comparable<T>> {
         return compare(elements[i], elements[j]) > 0;
     }
 
-    protected boolean isEqualTo(T[] elements, int i, int j) {
-        return compare(elements[i], elements[j]) == 0;
-    }
-
     protected boolean isLessThan(T[] elements, int i, int j) {
         return compare(elements[i], elements[j]) < 0;
     }

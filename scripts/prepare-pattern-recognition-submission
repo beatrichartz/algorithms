@@ -1,0 +1,27 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pushd $DIR > /dev/null
+
+mkdir ./.tmp-submission
+
+cat ../src/beatrichartz/algorithms/sorting/examples/pattern_recognition/Point.java\
+ | sed -e 's/package beatrichartz.algorithms.sorting.examples.pattern_recognition;//'\
+ > ./.tmp-submission/Point.java
+
+cat ../src/beatrichartz/algorithms/sorting/examples/pattern_recognition/BruteCollinearPoints.java\
+ | sed -e 's/package beatrichartz.algorithms.sorting.examples.pattern_recognition;//'\
+ | sed -e 's/ implements CollinearPoints//'\
+ > ./.tmp-submission/BruteCollinearPoints.java
+
+cat ../src/beatrichartz/algorithms/sorting/examples/pattern_recognition/FastCollinearPoints.java\
+ | sed -e 's/package beatrichartz.algorithms.sorting.examples.pattern_recognition;//'\
+ | sed -e 's/ implements CollinearPoints//'\
+ > ./.tmp-submission/FastCollinearPoints.java
+
+pushd ./.tmp-submission > /dev/null
+zip -D ../pattern-recognition.zip *
+popd > /dev/null
+
+rm -r ./.tmp-submission
+popd > /dev/null

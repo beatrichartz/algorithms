@@ -1,31 +1,26 @@
 package beatrichartz.algorithms_test.sorting.examples.pattern_recognition;
 
-import beatrichartz.algorithms.sorting.examples.pattern_recognition.BruteCollinearPoints;
-import beatrichartz.algorithms.sorting.examples.pattern_recognition.CollinearPoints;
-import beatrichartz.algorithms.sorting.examples.pattern_recognition.LineSegment;
-import beatrichartz.algorithms.sorting.examples.pattern_recognition.Point;
+import beatrichartz.algorithms.sorting.examples.pattern_recognition.*;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.hamcrest.core.Is.isA;
 
 @RunWith(value = Parameterized.class)
 public class CollinearPointsTest {
+    private final GridTestHelper gridTestHelper = new GridTestHelper();
+
     @Parameterized.Parameters(name = "{0}")
     public static Collection<Object> data() {
         List<Object> collection = new ArrayList();
         collection.add(BruteCollinearPoints.class);
+        collection.add(FastCollinearPoints.class);
         return collection;
     }
 
@@ -33,10 +28,6 @@ public class CollinearPointsTest {
 
     public CollinearPointsTest(Class collinearPointsClass) {
         this.collinearPointsClass = collinearPointsClass;
-    }
-
-    private int countChar(String pointsString, String character) {
-        return pointsString.length() - pointsString.replace(character, "").length();
     }
 
     @Rule
@@ -74,48 +65,62 @@ public class CollinearPointsTest {
     }
 
     @Test
-    public void testSegmentsWithSmallGrid() throws Exception {
+    public void testConstructorDoesNotMutate() throws Exception {
+        Point[] points = gridTestHelper.getPointsForGrid("7x7");
+        Point[] backup = points.clone();
+
+        collinearPointsClass.getConstructor(Point[].class).
+                    newInstance(new Object[]{points});
+
+        for (int i = 0; i < points.length; i++) {
+            assertEquals(0, points[i].compareTo(backup[i]));
+        }
+    }
+
+    @Test
+    public void testSegmentsImmutable() throws Exception {
         CollinearPoints collinearPoints = getCollinearPointsForGrid("7x7");
         LineSegment[] segments = collinearPoints.segments();
 
+        assertEquals(true, segments.length > 0);
+        assertEquals(false, segments[1] == null);
+        segments[1] = null;
+
+        segments = collinearPoints.segments();
+        assertEquals(false, segments[1] == null);
+    }
+
+    @Test
+    public void testSegmentsWithSmallGrid() throws Exception {
+        CollinearPoints collinearPoints = getCollinearPointsForGrid("7x7");
+        LineSegment[] segments = getSortedSegments(collinearPoints);
+
         assertEquals(4, segments.length);
-        assertEquals("(2, 6) -> (2, 1)", segments[0].toString());
-        assertEquals("(4, 6) -> (4, 1)", segments[1].toString());
-        assertEquals("(4, 5) -> (0, 1)", segments[2].toString());
+
+        assertEquals("(4, 6) -> (4, 1)", segments[0].toString());
+        assertEquals("(4, 5) -> (0, 1)", segments[1].toString());
+        assertEquals("(2, 6) -> (2, 1)", segments[2].toString());
         assertEquals("(2, 3) -> (5, 0)", segments[3].toString());
     }
 
     @Test
     public void testSegmentsWithLargeGrid() throws Exception {
         CollinearPoints collinearPoints = getCollinearPointsForGrid("20x20");
-        LineSegment[] segments = collinearPoints.segments();
+        LineSegment[] segments = getSortedSegments(collinearPoints);
 
         assertEquals(5, segments.length);
         assertEquals("(19, 19) -> (19, 1)", segments[0].toString());
-        assertEquals("(0, 18) -> (18, 9)", segments[1].toString());
+        assertEquals("(19, 1) -> (5, 1)", segments[1].toString());
         assertEquals("(18, 17) -> (0, 11)", segments[2].toString());
-        assertEquals("(0, 11) -> (5, 1)", segments[3].toString());
-        assertEquals("(19, 1) -> (5, 1)", segments[4].toString());
+        assertEquals("(0, 18) -> (18, 9)", segments[3].toString());
+        assertEquals("(0, 11) -> (5, 1)", segments[4].toString());
     }
 
-    private Point[] getPointsForGrid(String gridName) {
-        List<String> grid = new ArrayList<>();
-        try {
-            grid = Files.readAllLines(Paths.get("test/resources/fixtures/pattern_recognition", gridName + ".txt"));
-        } catch (IOException e) { System.out.println(e); }
+    private LineSegment[] getSortedSegments(CollinearPoints collinearPoints) {
+        List<LineSegment> segmentList = Arrays.asList(collinearPoints.segments());
+        Collections.sort(segmentList, (a, b) -> b.toString().compareTo(a.toString()));
 
-        Integer capacity = grid.stream().map(line -> countChar(line, "x")).reduce(0, (x, y) -> x + y);
-        Point[] points = new Point[capacity];
-        int index = 0;
-        for (int y = grid.size() - 1; y >= 0; y--) {
-            String line = grid.get(grid.size() - y - 1);
-            for (int x = 0; x < line.length(); x++) {
-                if (line.charAt(x) == 'x') {
-                    points[index++] = new Point(x, y);
-                }
-            }
-        }
-        return points;
+        return segmentList.toArray(new LineSegment[0]);
     }
 
     private CollinearPoints getCollinearPoints(Point[] points) {
@@ -123,12 +128,12 @@ public class CollinearPointsTest {
             return (CollinearPoints) collinearPointsClass.getConstructor(Point[].class).
                     newInstance(new Object[]{points});
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             return null;
         }
     }
 
     private CollinearPoints getCollinearPointsForGrid(String gridName) {
-        return getCollinearPoints(getPointsForGrid(gridName));
+        return getCollinearPoints(gridTestHelper.getPointsForGrid(gridName));
     }
 }

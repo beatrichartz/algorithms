@@ -1,13 +1,13 @@
-package beatrichartz.algorithms.sorting.examples.pattern_recognition;
+
 
 import java.util.ArrayList;
 
-public class BruteCollinearPoints implements CollinearPoints {
+public class BruteCollinearPoints {
     private final LineSegment[] lineSegments;
 
     public BruteCollinearPoints(Point[] points) {
         if (points == null) throw new NullPointerException();
-        ArrayList<LineSegment> segmentsList = new ArrayList<>();
+        ArrayList<LineSegment> lineSegments = new ArrayList<>();
 
         for (int i1 = 0; i1 < points.length; i1++) {
             Point point1 = points[i1];
@@ -26,21 +26,21 @@ public class BruteCollinearPoints implements CollinearPoints {
                         Point point4 = points[i4];
                         assertNotNull(point4);
 
-                        if (Double.compare(point1.slopeTo(point2), point1.slopeTo(point3)) == 0 &&
-                                Double.compare(point1.slopeTo(point2), point1.slopeTo(point4)) == 0 &&
-                                Double.compare(point1.slopeTo(point3), point1.slopeTo(point4)) == 0) {
+                        if (point1.slopeTo(point2) == point1.slopeTo(point3) &&
+                                point1.slopeTo(point2) == point1.slopeTo(point4) &&
+                                point1.slopeTo(point3) == point1.slopeTo(point4)) {
 
                             Point y = getMin(point1, point2, point3, point4);
                             Point x = getMax(point1, point2, point3, point4);
 
-                            segmentsList.add(new LineSegment(x, y));
+                            lineSegments.add(new LineSegment(x, y));
                         }
                     }
                 }
             }
         }
 
-        this.lineSegments = segmentsList.toArray(new LineSegment[0]);
+        this.lineSegments = lineSegments.toArray(new LineSegment[0]);
     }
 
     private void assertNotSame(Point point1, Point point2) {

@@ -1,7 +1,11 @@
 package beatrichartz.algorithms.sorting;
 
+import edu.princeton.cs.algs4.StdRandom;
+
 public class QuickSort<T extends Comparable<T>> extends Sort<T> {
     public T[] sort(T[] elements) {
+        StdRandom.shuffle(elements);
+
         sort(elements, 0, elements.length - 1);
         return elements;
     }

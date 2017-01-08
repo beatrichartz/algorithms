@@ -1,4 +1,4 @@
-package beatrichartz.algorithms.sorting.examples.pattern_recognition;
+
 
 /******************************************************************************
  *  Compilation:  javac Point.java
@@ -61,7 +61,7 @@ public class Point implements Comparable<Point> {
             double slopeToPoint2 = point.slopeTo(point2);
 
             if (slopeToPoint1 > slopeToPoint2) return 1;
-            else if (Double.compare(slopeToPoint1, slopeToPoint2) == 0) return 0;
+            else if (slopeToPoint1 == slopeToPoint2) return 0;
             else return -1;
         }
     }
