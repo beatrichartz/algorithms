@@ -15,7 +15,6 @@ public class FastCollinearPoints implements CollinearPoints {
 
         Point[] iterPoints = points.clone();
         Point[] workPoints = points.clone();
-        StdRandom.shuffle(workPoints);
 
         for (int i = 0; i < iterPoints.length; i++) {
             Point point = iterPoints[i];
@@ -94,6 +93,7 @@ public class FastCollinearPoints implements CollinearPoints {
     }
 
     private void sortBySlopesToPoint(Point[] points, Point point) {
+        StdRandom.shuffle(points);
         sortBySlopes(points, point.slopeOrder(), 0, points.length - 1);
     }
 
