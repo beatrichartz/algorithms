@@ -12,20 +12,20 @@ public class QuickSort3<T extends Comparable<T>> extends Sort<T> {
 
     private void sort(T[] elements, int low, int high) {
         if (high <= low) return;
-        int lowerThan = low;
-        int greaterThan = high;
+        int lowValue = low;
+        int highValue = high;
 
         T value = elements[low];
         int i = low;
 
-        while (i <= greaterThan) {
+        while (i <= highValue) {
             int comparison = elements[i].compareTo(value);
-            if (comparison < 0) swap(elements, lowerThan++, i++);
-            else if (comparison > 0) swap(elements, i, greaterThan--);
+            if (comparison < 0) swap(elements, lowValue++, i++);
+            else if (comparison > 0) swap(elements, i, highValue--);
             else i++;
         }
 
-        sort(elements, low, lowerThan - 1);
-        sort(elements, greaterThan + 1, high);
+        sort(elements, low, lowValue - 1);
+        sort(elements, highValue + 1, high);
     }
 }
