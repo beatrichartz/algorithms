@@ -25,6 +25,7 @@ public class SortTest {
         collection.add(QuickSort3.class);
         collection.add(TopDownMergeSort.class);
         collection.add(BottomUpMergeSort.class);
+        collection.add(HeapSort.class);
         return collection;
     }
 

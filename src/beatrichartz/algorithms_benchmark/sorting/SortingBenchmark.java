@@ -66,6 +66,11 @@ public class SortingBenchmark {
     }
 
     @Macrobenchmark
+    void timeHeapSort() {
+        new HeapSort<Integer>().sort(Arrays.copyOf(input, input.length));
+    }
+
+    @Macrobenchmark
     void timeShellSort() {
         new ShellSort<Integer>().sort(Arrays.copyOf(input, input.length));
     }
