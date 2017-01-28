@@ -1,0 +1,21 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pushd $DIR > /dev/null
+
+mkdir ./.tmp-submission
+
+cat ../src/beatrichartz/algorithms/priority_queues/examples/eight_puzzle/Board.java\
+ | sed -e 's/package beatrichartz.algorithms.priority_queues.examples.eight_puzzle;//'\
+ > ./.tmp-submission/Board.java
+
+cat ../src/beatrichartz/algorithms/priority_queues/examples/eight_puzzle/Solver.java\
+ | sed -e 's/package beatrichartz.algorithms.priority_queues.examples.eight_puzzle;//'\
+ > ./.tmp-submission/Solver.java
+
+pushd ./.tmp-submission > /dev/null
+zip -D ../priority-queues.zip *
+popd > /dev/null
+
+rm -r ./.tmp-submission
+popd > /dev/null
