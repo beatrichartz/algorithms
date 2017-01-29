@@ -40,7 +40,7 @@ public class LinkedListQueue<T> implements Queue<T> {
         return element;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return first == null;
     }
 

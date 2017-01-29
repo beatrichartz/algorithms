@@ -1,6 +1,7 @@
 package beatrichartz.algorithms_test.elementary_symbol_tables;
 
 import beatrichartz.algorithms.elementary_symbol_tables.ArraySymbolTable;
+import beatrichartz.algorithms.elementary_symbol_tables.BinarySearchTreeSymbolTable;
 import beatrichartz.algorithms.elementary_symbol_tables.OrderedSymbolTable;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ public class OrderedSymbolTableTest {
     public static Collection data() {
         List<Object> collection = new ArrayList();
         collection.add(ArraySymbolTable.class);
+        collection.add(BinarySearchTreeSymbolTable.class);
         return collection;
     }
 

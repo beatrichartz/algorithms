@@ -22,10 +22,14 @@ public class QueueOfStacks<T> implements Queue<T> {
     }
 
     public T dequeue() {
-        if (topStack.isEmpty() && bottomStack.isEmpty()) return null;
+        if (isEmpty()) return null;
         else if (bottomStack.isEmpty()) refillBottomStack();
 
         return bottomStack.pop();
+    }
+
+    public boolean isEmpty() {
+        return topStack.isEmpty() && bottomStack.isEmpty();
     }
 
     private void refillBottomStack() {

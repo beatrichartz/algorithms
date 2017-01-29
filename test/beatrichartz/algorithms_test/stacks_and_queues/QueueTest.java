@@ -45,6 +45,18 @@ public class QueueTest {
     }
 
     @Test
+    public void emptiness() throws Exception {
+        assertEquals(true, queue.isEmpty());
+
+        queue.enqueue("A");
+        assertEquals(false, queue.isEmpty());
+
+        queue.dequeue();
+        assertEquals(true, queue.isEmpty());
+    }
+
+
+    @Test
     public void dequeueReturnsNullWithEmptyQueue() throws Exception {
         assertEquals(null, queue.dequeue());
     }

@@ -44,7 +44,7 @@ public class ResizingArrayQueue<T> implements Queue<T> {
         elements = newElements;
     }
 
-    private boolean isEmpty() {
+    public boolean isEmpty() {
         return firstCursor >= lastCursor;
     }
 }
