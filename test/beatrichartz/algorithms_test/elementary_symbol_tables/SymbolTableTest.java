@@ -1,9 +1,6 @@
 package beatrichartz.algorithms_test.elementary_symbol_tables;
 
-import beatrichartz.algorithms.elementary_symbol_tables.ArraySymbolTable;
-import beatrichartz.algorithms.elementary_symbol_tables.BinarySearchTreeSymbolTable;
-import beatrichartz.algorithms.elementary_symbol_tables.LinkedListSymbolTable;
-import beatrichartz.algorithms.elementary_symbol_tables.SymbolTable;
+import beatrichartz.algorithms.elementary_symbol_tables.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +20,7 @@ public class SymbolTableTest {
         collection.add(LinkedListSymbolTable.class);
         collection.add(ArraySymbolTable.class);
         collection.add(BinarySearchTreeSymbolTable.class);
+        collection.add(RedBlackBinarySearchTreeSymbolTable.class);
         return collection;
     }
 

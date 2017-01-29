@@ -6,25 +6,87 @@ import beatrichartz.algorithms.stacks_and_queues.ResizingArrayQueue;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> implements OrderedSymbolTable<Key, Value> {
+public class RedBlackBinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> implements OrderedSymbolTable<Key, Value> {
+    private static final boolean RED = true;
+    private static final boolean BLACK = false;
+
     private class Node {
-        private final Key key;
+        private Key key;
         private Value value;
         private Node left;
         private Node right;
         private int size;
+        private boolean color;
 
         public Node(Key key, Value value, int size) {
             this.key = key;
             this.value = value;
             this.size = size;
+            this.color = RED;
         }
     }
 
     private Node root;
 
+    private Node rotateLeft(Node node) {
+        Node rightNode = node.right;
+        node.right = rightNode.left;
+        rightNode.left = node;
+        rightNode.color = node.color;
+        rightNode.size = node.size;
+        node.color = RED;
+        resize(node);
+
+        return rightNode;
+    }
+
+    private Node rotateRight(Node node) {
+        Node leftNode = node.left;
+        node.left = leftNode.right;
+        leftNode.right = node;
+        leftNode.color = node.color;
+        leftNode.size = node.size;
+        node.color = RED;
+        resize(node);
+
+        return leftNode;
+    }
+
+    private Node moveRedLeft(Node node) {
+        colorFlip(node);
+        if (isRed(node.right.left)) {
+            node.right = rotateRight(node.right);
+            node = rotateLeft(node);
+            colorFlip(node);
+        }
+
+        return node;
+    }
+
+    private Node moveRedRight(Node node) {
+        colorFlip(node);
+        if (isRed(node.left.left)) {
+            node = rotateRight(node);
+            colorFlip(node);
+        }
+
+        return node;
+    }
+
+    private void colorFlip(Node node) {
+        node.color = !node.color;
+        node.left.color = !node.left.color;
+        node.right.color = !node.right.color;
+    }
+
+    private boolean isRed(Node node) {
+        if (node == null) return false;
+        return node.color == RED;
+    }
+
     public void put(Key key, Value value) {
         root = put(root, key, value);
+        colorRootBlack();
     }
 
     private Node put(Node node, Key key, Value value) {
@@ -41,48 +103,79 @@ public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> imp
             node.value = value;
         }
 
-        node.size = 1 + size(node.left) + size(node.right);
+        return balance(node);
+    }
+
+    private Node balance(Node node) {
+        if (isRed(node.right) && !isRed(node.left)) node = rotateLeft(node);
+        if (isRed(node.left) && isRed(node.left.left)) node = rotateRight(node);
+        if (isRed(node.left) && isRed(node.right)) colorFlip(node);
+
+        resize(node);
         return node;
+    }
+
+    private void resize(Node node) {
+        node.size = 1 + size(node.left) + size(node.right);
     }
 
 
     public Value get(Key key) {
         Node node = root;
-        while (node != null) {
-            int comparison = node.key.compareTo(key);
-            if (comparison < 0) {
-                node = node.right;
-            } else if (comparison > 0) {
-                node = node.left;
-            } else {
-                return node.value;
-            }
-        }
-
-        return null;
+        return get(node, key);
     }
 
+    private Value get(Node node, Key key) {
+        if (node == null) return null;
+
+        int comparison = node.key.compareTo(key);
+        if (comparison < 0) {
+            return get(node.right, key);
+        } else if (comparison > 0) {
+            return get(node.left, key);
+        } else {
+            return node.value;
+        }
+    }
+
+
     public void delete(Key key) {
+        if (isBlack(root.left) && isBlack(root.right))
+            root.color = RED;
+
         root = delete(root, key);
+        colorRootBlack();
     }
 
     private Node delete(Node node, Key key) {
         if (node == null) return null;
         int comparison = key.compareTo(node.key);
 
-        if (comparison < 0) node.left = delete(node.left, key);
-        else if (comparison > 0) node.right = delete(node.right, key);
-        else if (node.right == null)  return node.left;
-        else if (node.left == null)  return node.right;
-        else {
-            Node successor = node;
-            node = min(successor.right);
-            node.right = deleteMin(successor.right);
-            node.left = successor.left;
+        if (comparison < 0 && !isRed(node.left) && !isRed(node.left.left)) {
+            node = moveRedLeft(node);
+            node.left = delete(node.left, key);
+        } else if (comparison < 0) {
+            node.left = delete(node.left, key);
+        } else {
+            if (isRed(node.left)) node = rotateRight(node);
+            if (comparison == 0 && node.right == null) return null;
+            if (isBlack(node.right) && isBlack(node.right.left)) node = moveRedRight(node);
+            if (comparison == 0) {
+                Key newKey = min(node.right).key;
+                node.value = get(node.right, newKey);
+                node.key = newKey;
+                node.right = deleteMin(node.right);
+            } else {
+                node.right = delete(node.right, key);
+            }
         }
 
-        node.size = 1 + size(node.left) + size(node.right);
-        return node;
+        return balance(node);
+    }
+
+    private boolean isBlack(Node node) {
+        if (node == null) return false;
+        return node.color == BLACK;
     }
 
     public Key min() {
@@ -148,7 +241,7 @@ public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> imp
     }
 
     public boolean isEmpty() {
-        return size(root) == 0;
+        return size() == 0;
     }
 
     public int size() {
@@ -167,6 +260,7 @@ public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> imp
     private int rank(Node node, Key key) {
         if (node == null) return 0;
         int comparison = key.compareTo(node.key);
+
         if (comparison < 0) return rank(node.left, key);
         else if (comparison > 0) return 1 + size(node.left) + rank(node.right, key);
         else return size(node.left);
@@ -236,14 +330,22 @@ public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> imp
 
     public void deleteMin() {
         root = deleteMin(root);
+        colorRootBlack();
+    }
+
+    private void colorRootBlack() {
+        if (root != null) root.color = BLACK;
     }
 
     private Node deleteMin(Node node) {
         if (node == null) return null;
         if (node.left == null) return node.right;
+
+        if (isBlack(node.left) && isBlack(node.left.left))
+            node = moveRedLeft(node);
+
         node.left = deleteMin(node.left);
-        node.size = 1 + size(node.left) + size(node.right);
-        return node;
+        return balance(node);
     }
 
     public void deleteMax() {
@@ -252,10 +354,14 @@ public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> imp
 
     private Node deleteMax(Node node) {
         if (node == null) return null;
+        if (isRed(node.left)) node = rotateRight(node);
         if (node.right == null) return node.left;
+
+        if (isBlack(node.right) && isBlack(node.right.left))
+            node = moveRedLeft(node);
+
         node.right = deleteMax(node.left);
-        node.size = 1 + size(node.left) + size(node.right);
-        return node;
+        return balance(node);
     }
 
     public int size(Key low, Key high) {
@@ -273,4 +379,5 @@ public class BinarySearchTreeSymbolTable<Key extends Comparable<Key>, Value> imp
     public Iterable<Key> keys(Key low, Key high) {
         return new KeyIterable(root, low, high);
     }
+
 }
