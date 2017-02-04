@@ -1,0 +1,23 @@
+#!/bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+pushd $DIR > /dev/null
+
+mkdir ./.tmp-submission
+
+cat ../src/beatrichartz/algorithms/kd_trees/PointSET.java\
+ | sed -e 's/package beatrichartz.algorithms.kd_trees;//'\
+ | sed -e 's/ implements APointSet//'\
+ > ./.tmp-submission/PointSET.java
+
+cat ../src/beatrichartz/algorithms/kd_trees/KdTree.java\
+ | sed -e 's/package beatrichartz.algorithms.kd_trees;//'\
+ | sed -e 's/ implements APointSet//'\
+ > ./.tmp-submission/KdTree.java
+
+pushd ./.tmp-submission > /dev/null
+zip -D ../kd-trees.zip *
+popd > /dev/null
+
+rm -r ./.tmp-submission
+popd > /dev/null
